@@ -48,6 +48,7 @@
     "@types/node": "^13.13.1",
     "@types/sinon": "^9.0.0",
     "chai": "^4.2.0",
+    "formiojs": "^4.12.7",
     "gulp": "^4.0.2",
     "gulp-insert": "^0.5.0",
     "gulp-rename": "^2.0.0",
