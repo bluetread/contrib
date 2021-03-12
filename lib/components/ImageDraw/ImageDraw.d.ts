@@ -10,6 +10,16 @@ export default class ImageDrawComponent extends FileComponent {
         schema: any;
     };
     render(): any;
+    getValue(): any;
+    get emptyValue(): any[];
+    get modes(): {
+        pencil: {
+            title: string;
+            state: {
+                mode: string;
+            };
+        };
+    };
     attach(element: any): any;
 }
 export {};

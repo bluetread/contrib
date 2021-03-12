@@ -1,4 +1,5 @@
 import { Components } from 'formiojs';
+import { sketchpad } from 'sketchpad-agpl/server';
 const FileComponent = (Components as any).components.file;
 
 export default class ImageDrawComponent extends FileComponent {
