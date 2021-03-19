@@ -66,6 +66,7 @@
     "webpack-cli": "^3.3.11"
   },
   "dependencies": {
+    "markerjs2": "^2.5.0",
     "sketchpad-agpl": "git+https://github.com/bluetread/sketchpad.git"
   }
 }
