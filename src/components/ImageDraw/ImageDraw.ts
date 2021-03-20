@@ -25,7 +25,7 @@ export default class ImageDrawComponent extends FileComponent {
 
     render(){
       let uploadRender = super.render();
-      uploadRender += '<a ref="clickStart"><img ref="gridImage" src="https://upload.wikimedia.org/wikipedia/commons/f/f8/Numbered_14x20_grid.svg" width="400px" crossorigin="anonymous"/></a>';
+      uploadRender += '<div id="markerImage"><a ref="clickStart"><img ref="gridImage" src="https://upload.wikimedia.org/wikipedia/commons/f/f8/Numbered_14x20_grid.svg" width="400px" crossorigin="anonymous"/></a></div>';
       return uploadRender;
     }
 
@@ -38,20 +38,21 @@ export default class ImageDrawComponent extends FileComponent {
         });
 
         this.addEventListener(this.refs.clickStart, 'click', (event) => {
-          event.preventDefault();
-          this.markerArea.show();
+          if (this.refs.gridImage){
+            this.markerArea = new markerjs2.MarkerArea(this.refs.gridImage);
+            this.markerArea.targetRoot = document.getElementById('markerImage');
+           // element.className = 'markerImage';
+            this.markerArea.settings.displayMode = 'inline';
+            this.markerArea.availableMarkerTypes = this.markerArea.DEFAULT_MARKER_TYPES;
+  
+            this.markerArea.addRenderEventListener((dataURL) => this.refs.gridImage.src = dataURL);
+           
+            event.preventDefault();
+            this.markerArea.show();
+          };
+  
         });
-
-        if (this.refs.gridImage){
-        this.markerArea = new markerjs2.MarkerArea(this.refs.gridImage);
-        this.markerArea.settings.displayMode = 'inline';
-        this.markerArea.availableMarkerTypes = this.markerArea.DEFAULT_MARKER_TYPES;
         
-        this.markerArea.addRenderEventListener((dataURL) => this.refs.gridImage.src = dataURL);
-        }
-        else{
-          this.markerArea.close();
-        }
         return attachRet;
     }
 
