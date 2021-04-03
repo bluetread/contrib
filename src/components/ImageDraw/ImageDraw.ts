@@ -47,9 +47,11 @@ export default class ImageDrawComponent extends FileComponent {
             this.markerArea.targetRoot = document.getElementById('markerImage');
            // element.className = 'markerImage';
             this.markerArea.settings.displayMode = 'inline';
-            this.markerArea.availableMarkerTypes = this.markerArea.DEFAULT_MARKER_TYPES;
+            // this.markerArea.availableMarkerTypes = this.markerArea.DEFAULT_MARKER_TYPES;
+            this.markerArea.availableMarkerTypes = ['FrameMarker', 'FreehandMarker', 'LineMarker','TextMarker'];
             this.markerArea.settings.defaultColorSet = ['black','red', 'green', 'blue'];
             this.markerArea.settings.defaultColor = 'black';
+            this.markerArea.uiStyleSettings.
             this.markerArea.uiStyleSettings.toolbarStyleColorsClassName = 'bg-gray-50';
             this.markerArea.uiStyleSettings.toolbarButtonStyleColorsClassName =
               'bg-gradient-to-t from-gray-50 to-gray-50 hover:from-gray-50 hover:to-pink-50 fill-current text-pink-300';
