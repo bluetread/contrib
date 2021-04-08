@@ -10,6 +10,23 @@ To install this library, do the following.
 npm install --save @formio/contrib
 ```
 
+## Test
+For local testing of custom component changes, after every change do: 
+```
+npm run build 
+```
+Run http-server.
+
+Browser cache will affect things so clear cache before testing new changes if your expected changes dont display
+
+## Usage - BlueTread
+1. update contrib repo 
+2. update [custom components contrib repo](https://github.com/bluetread/formio-custom-components) with use.min.js file   (that second step is the repo we made with github actions, could probably move the first repo into that one but it was on the backlog) 
+
+MarkerJS
+
+https://markerjs.com/docs/getting-started
+
 ## Usage
 
 ```javascript
