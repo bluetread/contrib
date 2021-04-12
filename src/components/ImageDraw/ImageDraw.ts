@@ -66,7 +66,10 @@ export default class ImageDrawComponent extends FileComponent {
         {
           console.log("DataUrl:" + dataUrl);
           if (this.refs.gridImage) {
-            this.refs.gridImage.src = dataUrl;
+            //console.log("Setting Value back to Image")
+            //this.refs.gridImage.src = dataUrl;
+
+            console.log("Calling setValue")
             this.setValue(dataUrl);
           }                            
         });
