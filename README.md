@@ -56,6 +56,9 @@ Or you can use the **formio-contrib.use.min.js** file which automatically adds t
 <link rel="stylesheet" href="https://unpkg.com/@formio/contrib@latest/dist/formio-contrib.css">
 ```
 
+#Why We're doing this
+We're extending from the file component because eventually we want to be able to take a picture and modify it. 
+
 ### Using within the Form.io Developer Portal
 It is also possible to inject custom components within the Form.io Developer Portal. This allows you to use the Developer Portal to create forms that include your custom components. Note: This currently only works with the Next portal @ https://next.form.io
 

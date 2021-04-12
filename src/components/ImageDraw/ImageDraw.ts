@@ -31,49 +31,73 @@ export default class ImageDrawComponent extends FileComponent {
       return uploadRender;
     }
 
+
+
+    showMarkerArea() {      
+      if (this.refs.gridImage){
+        this.markerArea = new markerjs2.MarkerArea(this.refs.gridImage);
+        this.markerArea.targetRoot = document.getElementById('markerImage');
+       // element.className = 'markerImage';
+        this.markerArea.settings.displayMode = 'inline';
+        // this.markerArea.availableMarkerTypes = this.markerArea.DEFAULT_MARKER_TYPES;
+        this.markerArea.availableMarkerTypes = ['FrameMarker', 'FreehandMarker', 'LineMarker','TextMarker'];
+        this.markerArea.settings.defaultColorSet = ['black','red', 'green', 'blue'];
+        this.markerArea.settings.defaultColor = 'black';
+        this.markerArea.uiStyleSettings.toolbarStyleColorsClassName = 'bg-gray-50';
+        this.markerArea.uiStyleSettings.toolbarButtonStyleColorsClassName =
+          'bg-gradient-to-t from-gray-50 to-gray-50 hover:from-gray-50 hover:to-pink-50 fill-current text-pink-300';
+        this.markerArea.uiStyleSettings.toolbarActiveButtonStyleColorsClassName =
+          'bg-gradient-to-t from-pink-100 via-gray-50 to-gray-50 fill-current text-pink-400';
+        this.markerArea.uiStyleSettings.toolbarOverflowBlockStyleColorsClassName = "bg-gray-50";
+
+        this.markerArea.uiStyleSettings.toolboxColor = '#F472B6';
+        this.markerArea.uiStyleSettings.toolboxAccentColor = '#BE185D';
+        this.markerArea.uiStyleSettings.toolboxStyleColorsClassName = 'bg-gray-50';
+        this.markerArea.uiStyleSettings.toolboxButtonRowStyleColorsClassName = 'bg-gray-50';
+        this.markerArea.uiStyleSettings.toolboxPanelRowStyleColorsClassName =
+          'bg-pink-100 bg-opacity-90 fill-current text-pink-400';
+        this.markerArea.uiStyleSettings.toolboxButtonStyleColorsClassName =
+          'bg-gradient-to-t from-gray-50 to-gray-50 hover:from-gray-50 hover:to-pink-50 fill-current text-pink-300';
+        this.markerArea.uiStyleSettings.toolboxActiveButtonStyleColorsClassName =
+          'bg-gradient-to-b from-pink-100 to-gray-50 fill-current text-pink-400';
+
+        this.markerArea.addRenderEventListener(dataUrl =>             
+        {
+          console.log("DataUrl:" + dataUrl);
+          if (this.refs.gridImage) {
+            this.refs.gridImage.src = dataUrl;
+            this.setValue(dataUrl);
+          }                            
+        });
+      
+        if(!super.disabled)
+        {
+          this.markerArea.show();
+        }
+        console.log("Disabled:" + super.disabled)
+        console.log("Marker JS is Added");
+    }
+  }
    
 
     attach(element){
 
-        const attachRet = super.attach(element);
+      console.log("attach disabled: " + super.disabled);
+      const attachRet = super.attach(element);
         this.loadRefs(element.parentNode, {
             gridImage: 'single',
             clickStart: 'single'
         });
 
         this.addEventListener(this.refs.clickStart, 'click', (event) => {
-          if (this.refs.gridImage){
-            this.markerArea = new markerjs2.MarkerArea(this.refs.gridImage);
-            this.markerArea.targetRoot = document.getElementById('markerImage');
-           // element.className = 'markerImage';
-            this.markerArea.settings.displayMode = 'inline';
-            // this.markerArea.availableMarkerTypes = this.markerArea.DEFAULT_MARKER_TYPES;
-            this.markerArea.availableMarkerTypes = ['FrameMarker', 'FreehandMarker', 'LineMarker','TextMarker'];
-            this.markerArea.settings.defaultColorSet = ['black','red', 'green', 'blue'];
-            this.markerArea.settings.defaultColor = 'black';
-            this.markerArea.uiStyleSettings.toolbarStyleColorsClassName = 'bg-gray-50';
-            this.markerArea.uiStyleSettings.toolbarButtonStyleColorsClassName =
-              'bg-gradient-to-t from-gray-50 to-gray-50 hover:from-gray-50 hover:to-pink-50 fill-current text-pink-300';
-            this.markerArea.uiStyleSettings.toolbarActiveButtonStyleColorsClassName =
-              'bg-gradient-to-t from-pink-100 via-gray-50 to-gray-50 fill-current text-pink-400';
-            this.markerArea.uiStyleSettings.toolbarOverflowBlockStyleColorsClassName = "bg-gray-50";
+          event.preventDefault();            
+          this.showMarkerArea();
+          
+          var valueResult = this.getValue();
+          console.log('PRESET' + valueResult)
 
-            this.markerArea.uiStyleSettings.toolboxColor = '#F472B6';
-            this.markerArea.uiStyleSettings.toolboxAccentColor = '#BE185D';
-            this.markerArea.uiStyleSettings.toolboxStyleColorsClassName = 'bg-gray-50';
-            this.markerArea.uiStyleSettings.toolboxButtonRowStyleColorsClassName = 'bg-gray-50';
-            this.markerArea.uiStyleSettings.toolboxPanelRowStyleColorsClassName =
-              'bg-pink-100 bg-opacity-90 fill-current text-pink-400';
-            this.markerArea.uiStyleSettings.toolboxButtonStyleColorsClassName =
-              'bg-gradient-to-t from-gray-50 to-gray-50 hover:from-gray-50 hover:to-pink-50 fill-current text-pink-300';
-            this.markerArea.uiStyleSettings.toolboxActiveButtonStyleColorsClassName =
-              'bg-gradient-to-b from-pink-100 to-gray-50 fill-current text-pink-400';
-  
-            this.markerArea.addRenderEventListener((dataURL) => this.refs.gridImage.src = dataURL);
-           
-            event.preventDefault();
-            this.markerArea.show();
-          };
+          this.setValue("abcd");
+          console.log('POSTSET' + this.getValue());
   
         });
         

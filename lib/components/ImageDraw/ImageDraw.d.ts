@@ -11,6 +11,7 @@ export default class ImageDrawComponent extends FileComponent {
         schema: any;
     };
     render(): any;
+    showMarkerArea(): void;
     attach(element: any): any;
 }
 export {};
