@@ -36,7 +36,7 @@ export default class ImageDrawComponent extends FileComponent {
 
     showMarkerArea() {      
       if (this.refs.gridImage){
-        this.markerArea = new markerjs2.MarkerArea(this.refs.gridImage);
+        this.markerArea = new markerjs2.MarkerArea(this.refs.gridImage);        
         this.markerArea.targetRoot = this.refs.markerImage;
        // element.className = 'markerImage';
         this.markerArea.settings.displayMode = 'inline';
@@ -70,11 +70,6 @@ export default class ImageDrawComponent extends FileComponent {
             this.setValue(dataUrl);
           }                            
         });
-
-        // this.makrerArea.addCloseEventListener(() => 
-        // {
-        //   console.log("close event handler");
-        // });
       
         if(!super.disabled)
         {
@@ -87,12 +82,13 @@ export default class ImageDrawComponent extends FileComponent {
    
 
     attach(element){
+      // console.log("Visible:" + this.visible);
+      // console.log("FullMode:" + this.fullMode);
+      // console.log("BuilderMode:" + this.builderMode);
 
-      console.log("attach disabled: " + super.disabled);
-
-      console.log(this.visible);
-      console.log(this.fullMode);
-      console.log(this.builderMode);
+      console.log("DataValue:" + this.dataValue) 
+      console.log("DefaultValue:" + this.defaultValue)       
+      console.log("HasValue:" + this.hasValue());
 
       const attachRet = super.attach(element);
         this.loadRefs(element.parentNode, {
@@ -101,16 +97,21 @@ export default class ImageDrawComponent extends FileComponent {
             markerImage: 'single'
         });
 
-        this.addEventListener(this.refs.clickStart, 'click', (event) => {
-          event.preventDefault();            
-          this.showMarkerArea();
-          
-          var valueResult = this.getValue();
-          console.log('PRESET' + valueResult)
+        //set the image do what we have persisted
+        var imageData = this.getValue();
+        console.log(imageData);
+        // if(imageData.length > )
+        // {
+        //   this.refs.gridImage.src = imageData;
+        // }
 
-          this.setValue("abcd");
-          console.log('POSTSET' + this.getValue());
-  
+        this.addEventListener(this.refs.clickStart, 'click', (event) => {
+          event.preventDefault();    
+          
+          if(!this.builderMode)
+          {
+            this.showMarkerArea();
+          }        
         });
         
         return attachRet;
