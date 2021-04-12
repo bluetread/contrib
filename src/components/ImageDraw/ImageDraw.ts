@@ -2,6 +2,7 @@ import * as markerjs2 from "markerjs2";
 import { Components } from 'formiojs';
 import _ from 'lodash';
 import editForm from './ImageDraw.form'
+import { cornflowerblue } from "color-name";
 const FileComponent = (Components as any).components.file;
 
 export default class ImageDrawComponent extends FileComponent {
@@ -27,7 +28,7 @@ export default class ImageDrawComponent extends FileComponent {
 
     render(){
       let uploadRender = super.render();
-      uploadRender += '<div><link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"></div><div id="markerImage"><a ref="clickStart"><img ref="gridImage" src="https://upload.wikimedia.org/wikipedia/commons/f/f8/Numbered_14x20_grid.svg" width="400px" crossorigin="anonymous"/></a></div>';
+      uploadRender += '<div><link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"></div><div ref="markerImage"><a ref="clickStart"><img ref="gridImage" src="https://upload.wikimedia.org/wikipedia/commons/f/f8/Numbered_14x20_grid.svg" width="400px" crossorigin="anonymous"/></a></div>';
       return uploadRender;
     }
 
@@ -36,7 +37,7 @@ export default class ImageDrawComponent extends FileComponent {
     showMarkerArea() {      
       if (this.refs.gridImage){
         this.markerArea = new markerjs2.MarkerArea(this.refs.gridImage);
-        this.markerArea.targetRoot = document.getElementById('markerImage');
+        this.markerArea.targetRoot = this.refs.markerImage;
        // element.className = 'markerImage';
         this.markerArea.settings.displayMode = 'inline';
         // this.markerArea.availableMarkerTypes = this.markerArea.DEFAULT_MARKER_TYPES;
@@ -69,6 +70,11 @@ export default class ImageDrawComponent extends FileComponent {
             this.setValue(dataUrl);
           }                            
         });
+
+        // this.makrerArea.addCloseEventListener(() => 
+        // {
+        //   console.log("close event handler");
+        // });
       
         if(!super.disabled)
         {
@@ -83,10 +89,16 @@ export default class ImageDrawComponent extends FileComponent {
     attach(element){
 
       console.log("attach disabled: " + super.disabled);
+
+      console.log(this.visible);
+      console.log(this.fullMode);
+      console.log(this.builderMode);
+
       const attachRet = super.attach(element);
         this.loadRefs(element.parentNode, {
             gridImage: 'single',
-            clickStart: 'single'
+            clickStart: 'single', 
+            markerImage: 'single'
         });
 
         this.addEventListener(this.refs.clickStart, 'click', (event) => {
