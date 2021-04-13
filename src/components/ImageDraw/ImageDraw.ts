@@ -37,10 +37,18 @@ export default class ImageDrawComponent extends FileComponent {
     }
 
     // render() {
-    //   return super.render(this.renderTemplate('imagedraw', {
+    //   console.log("render");
+    //   var result = super.render(this.renderTemplate('imagedraw', {
     //     files: this.dataValue || [],
     //     disabled: this.disabled
     //   }));
+
+    //   var test = this.renderTemplate('imagedraw', {
+    //     files: this.dataValue || [],
+    //     disabled: this.disabled
+    //   });
+
+    //   return result;
     // }    
 
 
@@ -78,7 +86,7 @@ export default class ImageDrawComponent extends FileComponent {
           console.log("DataUrl:" + dataUrl);
           if (this.refs.gridImage) {
 
-            this.refs.gridImage.src = dataUrl;
+            //this.refs.gridImage.src = dataUrl;
 
             console.log("Calling setValue")
 
