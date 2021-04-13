@@ -11,7 +11,9 @@ export default class ImageDrawComponent extends FileComponent {
         schema: any;
     };
     render(): any;
+    loadImage(fileInfo: any): any;
     showMarkerArea(): void;
     attach(element: any): any;
+    setDataToGridImage(imageUrl: any): void;
 }
 export {};

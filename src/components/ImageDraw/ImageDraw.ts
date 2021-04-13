@@ -1,8 +1,10 @@
 import * as markerjs2 from "markerjs2";
 import { Components } from 'formiojs';
+import { uniqueName } from 'formiojs/utils/utils';
 import _ from 'lodash';
 import editForm from './ImageDraw.form'
 import { cornflowerblue } from "color-name";
+import NativePromise from 'native-promise-only';
 const FileComponent = (Components as any).components.file;
 
 export default class ImageDrawComponent extends FileComponent {
@@ -50,7 +52,12 @@ export default class ImageDrawComponent extends FileComponent {
 
     //   return result;
     // }    
-
+    loadImage(fileInfo) {
+      if (this.component.privateDownload) {
+        fileInfo.private = true;
+      }
+      return this.fileService.downloadFile(fileInfo).then((result) => result.url);
+    }
 
 
     showMarkerArea() {      
@@ -100,9 +107,10 @@ export default class ImageDrawComponent extends FileComponent {
                       
             this.dataValue = []; // empty the array
 
-            this.dataValue.push(fileInfo);
-            console.log(this.dataValue);
-            this.setValue(this.dataValue);
+            //this.dataValue.push(fileInfo);
+            //console.log(this.dataValue);
+            this.setValue(dataUrl);
+            this.setDataToGridImage(dataUrl);
           }                            
         });
 
@@ -130,11 +138,11 @@ export default class ImageDrawComponent extends FileComponent {
 
         //set the image do what we have persisted
         var imageData = this.getValue();
+        if(!Array.isArray(imageData))
+        {
+          this.setDataToGridImage(imageData);
+        }
         console.log(imageData);
-        // if(imageData.length > )
-        // {
-        //   this.refs.gridImage.src = imageData;
-        // }
 
         this.addEventListener(this.refs.clickStart, 'click', (event) => {
           event.preventDefault();    
@@ -144,7 +152,11 @@ export default class ImageDrawComponent extends FileComponent {
             this.showMarkerArea();
           }        
         });
-        
+
         return attachRet;
+    } 
+
+    setDataToGridImage(imageUrl) {
+      this.refs.gridImage.setAttribute('src', imageUrl);
     }
 }
