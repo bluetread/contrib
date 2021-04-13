@@ -1,6 +1,5 @@
 import * as markerjs2 from "markerjs2";
 import { Components } from 'formiojs';
-import { uniqueName } from 'formiojs/utils/utils';
 import _ from 'lodash';
 import editForm from './ImageDraw.form'
 import { cornflowerblue } from "color-name";
@@ -33,7 +32,7 @@ export default class ImageDrawComponent extends FileComponent {
 
     render(){
       let uploadRender = super.render();
-      uploadRender += '<div><link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"></div><div ref="markerImage"><a ref="clickStart"><img ref="gridImage" src="https://upload.wikimedia.org/wikipedia/commons/f/f8/Numbered_14x20_grid.svg" width="100%" crossorigin="anonymous"/></a></div>';
+      uploadRender += '<div><link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"></div><div ref="markerImage"><a ref="clickStart"><img ref="gridImage" src="https://upload.wikimedia.org/wikipedia/commons/f/f8/Numbered_14x20_grid.svg" width="80%" crossorigin="anonymous"/></a></div>';
       console.log("render")
       return uploadRender;
     }
