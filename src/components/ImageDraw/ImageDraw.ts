@@ -110,7 +110,7 @@ export default class ImageDrawComponent extends FileComponent {
             //this.dataValue.push(fileInfo);
             //console.log(this.dataValue);
             this.setValue(dataUrl);
-            //this.setDataToGridImage(dataUrl);
+            this.setDataToGridImage(dataUrl);
           }                            
         });
 
@@ -157,6 +157,6 @@ export default class ImageDrawComponent extends FileComponent {
     } 
 
     setDataToGridImage(imageUrl) {
-      //this.refs.gridImage.setAttribute('src', imageUrl);
+      this.refs.gridImage.setAttribute('src', imageUrl);
     }
 }
