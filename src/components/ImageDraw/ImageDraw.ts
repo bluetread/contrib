@@ -11,7 +11,10 @@ export default class ImageDrawComponent extends FileComponent {
           type: 'imagedraw',
           image: 'true',
           storage: 'base64',
-          disabled: true
+          disabled: true,
+          filePattern: '*',
+          fileMinSize: '0KB',
+          fileMaxSize: '1GB'
         });
       }
 
@@ -29,8 +32,16 @@ export default class ImageDrawComponent extends FileComponent {
     render(){
       let uploadRender = super.render();
       uploadRender += '<div><link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"></div><div ref="markerImage"><a ref="clickStart"><img ref="gridImage" src="https://upload.wikimedia.org/wikipedia/commons/f/f8/Numbered_14x20_grid.svg" width="100%" crossorigin="anonymous"/></a></div>';
+      console.log("render")
       return uploadRender;
     }
+
+    // render() {
+    //   return super.render(this.renderTemplate('imagedraw', {
+    //     files: this.dataValue || [],
+    //     disabled: this.disabled
+    //   }));
+    // }    
 
 
 
@@ -66,19 +77,29 @@ export default class ImageDrawComponent extends FileComponent {
         {
           console.log("DataUrl:" + dataUrl);
           if (this.refs.gridImage) {
-            //console.log("Setting Value back to Image")
-            //this.refs.gridImage.src = dataUrl;
+
+            this.refs.gridImage.src = dataUrl;
 
             console.log("Calling setValue")
-            this.setValue(dataUrl);
+
+            var fileInfo = Object();
+            fileInfo.storage = "base64";
+            fileInfo.name = "testimage";
+            fileInfo.url = dataUrl;
+            fileInfo.size = 1024;
+            fileInfo.type = "image/jpeg";
+            fileInfo.originalName = "testimage5000";
+                      
+            this.dataValue = []; // empty the array
+
+            this.dataValue.push(fileInfo);
+            console.log(this.dataValue);
+            this.setValue(this.dataValue);
           }                            
         });
-      
-        if(!super.disabled)
-        {
-          this.markerArea.show();
-        }
-        console.log("Disabled:" + super.disabled)
+
+        this.markerArea.show();
+    
         console.log("Marker JS is Added");
     }
   }
@@ -91,7 +112,6 @@ export default class ImageDrawComponent extends FileComponent {
 
       console.log("DataValue:" + this.dataValue) 
       console.log("DefaultValue:" + this.defaultValue)       
-      console.log("HasValue:" + this.hasValue());
 
       const attachRet = super.attach(element);
         this.loadRefs(element.parentNode, {
@@ -119,6 +139,4 @@ export default class ImageDrawComponent extends FileComponent {
         
         return attachRet;
     }
-
 }
-
