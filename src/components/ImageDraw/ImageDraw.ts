@@ -91,26 +91,10 @@ export default class ImageDrawComponent extends FileComponent {
         this.markerArea.addRenderEventListener(dataUrl =>             
         {
           console.log("DataUrl:" + dataUrl);
-          if (this.refs.gridImage) {
-
-            //this.refs.gridImage.src = dataUrl;
-
-            console.log("Calling setValue")
-
-            var fileInfo = Object();
-            fileInfo.storage = "base64";
-            fileInfo.name = "testimage";
-            fileInfo.url = dataUrl;
-            fileInfo.size = 1024;
-            fileInfo.type = "image/jpeg";
-            fileInfo.originalName = "testimage5000";
-                      
-            this.dataValue = []; // empty the array
-
-            //this.dataValue.push(fileInfo);
-            //console.log(this.dataValue);
+          if (this.refs.gridImage) {                    
             this.setValue(dataUrl);
             this.setDataToGridImage(dataUrl);
+            this.refs.gridImage.src = dataUrl; // doing this just for giggles. Not sure if the above line is working
           }                            
         });
 
@@ -140,6 +124,7 @@ export default class ImageDrawComponent extends FileComponent {
         var imageData = this.getValue();
         if(!Array.isArray(imageData))
         {
+          console.log("data found to load");
           this.setDataToGridImage(imageData);
         }
         console.log(imageData);
